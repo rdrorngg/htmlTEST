@@ -154,21 +154,68 @@
             //에이잭스
             $.ajax({
                             type : 'POST',                                 
-                            url : 'https://cf1a-121-188-216-172.ngrok-free.app/',
+                            url : 'http://127.0.0.1:5000',//'https://cf1a-121-188-216-172.ngrok-free.app/',
                             data : {
                                     message:message                       
                             },
                             dataType : 'text',
                             success : function(respon){
-                                //봇 채팅 출력 수정 시도
                                 var res_list = $.parseJSON(respon)
+                                console.log(res_list)
+                                var AnswerCode = res_list['AnswerCode']
+                                console.log(AnswerCode)
                                 var botMessage = document.createElement("div");
-                                botMessage.className = "chat-message";
                                 var botBubble = document.createElement("div");
-                                botBubble.className = "bot-message";
-                                botBubble.textContent = res_list['Answer']
-                                botMessage.appendChild(botBubble);
-                                chatLog.appendChild(botMessage);
+                                if (AnswerCode == null){ //답변 코드 없을 시
+                                    botMessage.className = "chat-message";
+                                    botBubble.className = "bot-message";
+                                    botBubble.textContent = res_list['Answer']
+                                    botMessage.appendChild(botBubble);
+                                    chatLog.appendChild(botMessage);
+                                }
+                                else if (AnswerCode == 1) { //예약
+                                    botMessage.className = "chat-message";
+                                    botBubble.className = "bot-message";
+                                    botBubble.textContent = res_list['Answer']
+                                    botMessage.appendChild(botBubble);
+                                    chatLog.appendChild(botMessage);
+                                    loadReservation();
+                                } else if (AnswerCode == 2){ //최종 주문
+                                    botMessage.className = "chat-message";
+                                    botBubble.className = "bot-message";
+                                    botBubble.textContent = res_list['Answer']
+                                    botMessage.appendChild(botBubble);
+                                    chatLog.appendChild(botMessage);
+                                    loadOrder();
+                                } else if (AnswerCode == 3){ //메뉴 추천
+                                    botMessage.className = "chat-message";
+                                    botBubble.className = "bot-message";
+                                    botBubble.textContent = res_list['Answer']
+                                    botMessage.appendChild(botBubble);
+                                    chatLog.appendChild(botMessage);
+                                    loadMenuRecommend();
+                                } else if (AnswerCode == 4){ //메뉴 안내
+                                    botMessage.className = "chat-message";
+                                    botBubble.className = "bot-message";
+                                    botBubble.textContent = res_list['Answer']
+                                    botMessage.appendChild(botBubble);
+                                    chatLog.appendChild(botMessage);
+                                    loadMenuInfo();
+                                } else if (AnswerCode == 5){ //매장 정보
+                                    botMessage.className = "chat-message";
+                                    botBubble.className = "bot-message";
+                                    botBubble.textContent = res_list['Answer']
+                                    botMessage.appendChild(botBubble);
+                                    chatLog.appendChild(botMessage);
+                                    loadStoreInfo();
+                                } else if (AnswerCode == 6){ //이벤트 정보
+                                    botMessage.className = "chat-message";
+                                    botBubble.className = "bot-message";
+                                    botBubble.textContent = res_list['Answer']
+                                    botMessage.appendChild(botBubble);
+                                    chatLog.appendChild(botMessage);
+                                    loadPromotion();
+                                }
                             }
                     });
                 };
